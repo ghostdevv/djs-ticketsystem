@@ -1,0 +1,37 @@
+{
+  "name": "djs-ticketsystem",
+  "version": "2.0.0",
+  "description": "DJS-TicketSystem is a package designed to make creating \"tickets\" in discord servers easier.",
+  "main": "./src/index.js",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [
+    "djs",
+    "ticketsystem",
+    "djs-ticketsystem",
+    "djs ticketsystem",
+    "djs tickets",
+    "djs ticket",
+    "discord",
+    "discord.js",
+    "discord.js ticket",
+    "discord ticket",
+    "discord tickets",
+    "tickets",
+    "ticket"
+  ],
+  "author": "GHOST",
+  "license": "ISC",
+  "homepage": "https://github.com/ghostdevv/djs-ticketsystem",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghostdevv/djs-ticketsystem"
+  },
+  "bugs": {
+    "url": "https://github.com/ghostdevv/djs-ticketsystem"
+  },
+  "deprecated": false
+}
