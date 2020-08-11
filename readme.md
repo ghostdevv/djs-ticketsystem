@@ -29,7 +29,7 @@ client.login('token');
 ```
 
 ## Create a ticket
-`<guild>.createTicket(name, { options });`<br>
+`<guild>.createTicket({ options });`<br>
 Where `<guild>` is the guild class (see below if you are unsure)
 #### Options
 `name` This is the name of the ticket. You can use custom variables here (see below)<br>

@@ -16,7 +16,6 @@ Structures.extend('Guild', Guild => {
 
         /**
          * Creates a ticket.
-         * @param {string} name
          * @param {Object} [options] Options for creating a ticket
          * @param {string} [options.name='ticket-{OWNER.USERNAME}'] The name of the ticket
          * @param {User} [options.owner] The owner of the ticket
@@ -39,15 +38,13 @@ Structures.extend('Guild', Guild => {
          *      .catch(console.error);
          */
 
-        createTicket(name, options = {}) {
+        createTicket(options = {}) {
 
             const defaults = optionsHelper.get();
 
             options = Object.assign(defaults, options);
 
             return new Promise(async (resolve, reject) => {
-
-                if (name) options.name = name;
                 
                 if ((typeof options.name != 'string')) return reject(new TypeError('Expected a type of string for options.name'));
 
