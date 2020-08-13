@@ -8,7 +8,7 @@ DJS-TicketSystem is a package designed to make creating "tickets" in discord ser
 
 ## Install
 ```
-npm install djs-ticketsystem --save
+npm install -s djs-ticketsystem
 ```
 
 ## Setup
@@ -18,10 +18,9 @@ const ticketSystem = require('djs-ticketsystem');
 ```
 For example:
 ```js
-const ticketSystem = require('djs-ticketsystem');
-const Discord = require('discord.js');
+const { Client } = require('discord.js');
 
-const client = new Discord.Client();
+const client = new Client();
 
 client.on('ready', () => console.log('Online!'));
 
@@ -49,30 +48,22 @@ Where `<guild>` is the guild class (see below if you are unsure)
 The default config is
 ```js
 {
-name: 'ticket-{OWNER.USERNAME}',
-owner: undefined,
-category: undefined,
-type: 'text',
-nsfw: false,
-bitrate: undefined,
-userLimit: undefined,
-permissionOverwrites: [
-    {
-        id: '{OWNER.ID}',
-        allow: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'BAN_MEMBERS', 'ADMINISTRATOR', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'ADD_REACTIONS', 'VIEW_AUDIT_LOG', 'PRIORITY_SPEAKER', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'VIEW_GUILD_INSIGHTS', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'MANAGE_EMOJIS' ]
+    name: 'ticket-{OWNER.USERNAME}',
+    type: 'text',
+    nsfw: false,
+    permissionOverwrites: [
+        {
+            id: '{OWNER.ID}',
+            allow: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'BAN_MEMBERS', 'ADMINISTRATOR', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'ADD_REACTIONS', 'VIEW_AUDIT_LOG', 'PRIORITY_SPEAKER', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'VIEW_GUILD_INSIGHTS', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'MANAGE_EMOJIS' ]
+        },
+        {
+            id: '{GUILD.ID}',
+            deny: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'BAN_MEMBERS', 'ADMINISTRATOR', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'ADD_REACTIONS', 'VIEW_AUDIT_LOG', 'PRIORITY_SPEAKER', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'VIEW_GUILD_INSIGHTS', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'MANAGE_EMOJIS' ]
+            }
+    ],
+    openMessage: {
+        embed: new MessageEmbed().setColor('RANDOM').setDescription('Welcome to your ticket {OWNER}')
     },
-    {
-        id: '{GUILD.ID}',
-        deny: ['CREATE_INSTANT_INVITE', 'KICK_MEMBERS', 'BAN_MEMBERS', 'ADMINISTRATOR', 'MANAGE_CHANNELS', 'MANAGE_GUILD', 'ADD_REACTIONS', 'VIEW_AUDIT_LOG', 'PRIORITY_SPEAKER', 'STREAM', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'VIEW_GUILD_INSIGHTS', 'CONNECT', 'SPEAK', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'CHANGE_NICKNAME', 'MANAGE_NICKNAMES', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'MANAGE_EMOJIS' ]
-        }
-],
-position: undefined,
-rateLimitPerUser: undefined,
-reason: undefined,
-openMessage: {
-    text: undefined,
-    embed: new MessageEmbed().setColor('RANDOM').setDescription('Welcome to your ticket {OWNER}')
-},
 }
 ```
 
@@ -89,7 +80,7 @@ There are custom variables built in that allow for easily including data in mess
 
 #### Examples of where to create a ticket
 ```js
-client.on('message', async message => {
+client.on('message', message => {
     if (message.content == '-ticket') {
         message.guild.createTicket({ owner: message.author })
             .catch(console.error);
@@ -101,7 +92,7 @@ client.on('message', async message => {
 `<channel>.isTicket()`<br>
 For Example
 ```js
-client.on('message', async message => {
+client.on('message', message => {
     if (message.content == 'close' && message.channel.isTicket()) {
         console.log('Closed a ticket channel!');
         message.channel.delete();
