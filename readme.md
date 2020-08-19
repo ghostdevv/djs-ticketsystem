@@ -18,11 +18,19 @@ const ticketSystem = require('djs-ticketsystem');
 ```
 For example:
 ```js
+const ticketSystem = require('djs-ticketsystem');
 const { Client } = require('discord.js');
 
 const client = new Client();
 
 client.on('ready', () => console.log('Online!'));
+
+client.on('message', message => {
+    if (message.content == '-ticket') {
+        message.guild.createTicket({ owner: message.author })
+            .catch(console.error);
+    };
+});
 
 client.login('token');
 ```
