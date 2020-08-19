@@ -8,7 +8,7 @@ DJS-TicketSystem is a package designed to make creating "tickets" in discord ser
 
 ## Install
 ```
-npm install -s djs-ticketsystem
+npm install --save djs-ticketsystem
 ```
 
 ## Setup
