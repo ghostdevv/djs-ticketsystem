@@ -1,7 +1,8 @@
 
 var options = require('../defaults/options.js');
+const clonedeep = require('lodash.clonedeep');
 
 module.exports = {
-    get: () => Object.assign({}, options),
-    default: (opt = {}) => options = Object.assign(options, opt),
+    get: () => clonedeep(Object.assign({}, options)),
+    default: (opt = {}) => options = clonedeep(Object.assign(options, opt)),
 };
