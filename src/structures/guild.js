@@ -1,5 +1,6 @@
 const { Structures, Channel, MessageEmbed } = require('discord.js');
 const { stringvar, optionsHelper } = require('../helpers');
+const clonedeep = require('lodash.clonedeep');
 
 Structures.extend('Guild', Guild => {
 
@@ -42,7 +43,7 @@ Structures.extend('Guild', Guild => {
 
             const defaults = optionsHelper.get();
 
-            options = Object.assign(defaults, options);
+            options = clonedeep(Object.assign(defaults, options));
 
             return new Promise(async (resolve, reject) => {
                 
