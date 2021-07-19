@@ -24,7 +24,7 @@
     "ticket"
   ],
   "author": "GHOST",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://github.com/ghostdevv/djs-ticketsystem",
   "repository": {
     "type": "git",
