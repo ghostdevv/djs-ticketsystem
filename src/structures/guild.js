@@ -1,4 +1,4 @@
-const { Structures, Channel, MessageEmbed } = require('discord.js');
+const { Structures, MessageEmbed } = require('discord.js');
 const { stringvar, optionsHelper } = require('../helpers');
 const clonedeep = require('lodash.clonedeep');
 

@@ -1,5 +1,4 @@
 const { Structures } = require('discord.js');
-const { stringvar, optionsHelper } = require('../helpers');
 
 Structures.extend('TextChannel', (TextChannel) => {
     /**
