@@ -2,18 +2,16 @@ const { Structures, Channel, MessageEmbed } = require('discord.js');
 const { stringvar, optionsHelper } = require('../helpers');
 const clonedeep = require('lodash.clonedeep');
 
-Structures.extend('Guild', Guild => {
-
+Structures.extend('Guild', (Guild) => {
     /**
      * Extends the Guild class to implement ticket system methods.
      * @extends {Guild}
-    */
+     */
 
     class ticketSystemGuild extends Guild {
-
         constructor(client, data) {
             super(client, data);
-        };
+        }
 
         /**
          * Creates a ticket.
@@ -40,69 +38,90 @@ Structures.extend('Guild', Guild => {
          */
 
         createTicket(options = {}) {
-
             const defaults = optionsHelper.get();
 
             options = clonedeep(Object.assign(defaults, options));
 
             return new Promise(async (resolve, reject) => {
-                
-                if ((typeof options.name != 'string')) return reject(new TypeError('Expected a type of string for options.name'));
+                if (typeof options.name != 'string')
+                    return reject(
+                        new TypeError(
+                            'Expected a type of string for options.name',
+                        ),
+                    );
 
                 const svconfig = {
-                    'OWNER': `<@${options.owner.id}>`,
+                    OWNER: `<@${options.owner.id}>`,
                     'OWNER.USERNAME': options.owner.username,
                     'OWNER.TAG': options.owner.tag,
                     'OWNER.DISCRIMINATOR': options.owner.discriminator,
                     'OWNER.ID': options.owner.id,
-                    'GUILD': this,
+                    GUILD: this,
                     'GUILD.ID': this.id,
-                    'GUILD.NAME': this.name
+                    'GUILD.NAME': this.name,
                 };
 
-                if ((typeof options.category == 'string')) {
-                    options.category = this.channels.cache.get(options.category) || this.channels.cache.find(c => c.name == options.category);
-                    if (!options.category) return reject(new Error('Unable to find a category with the given id/name'));
-                };
-                
-                options.permissionOverwrites = options.permissionOverwrites.map(x => { x.id = stringvar(x.id, svconfig); return x; });
+                if (typeof options.category == 'string') {
+                    options.category =
+                        this.channels.cache.get(options.category) ||
+                        this.channels.cache.find(
+                            (c) => c.name == options.category,
+                        );
+                    if (!options.category)
+                        return reject(
+                            new Error(
+                                'Unable to find a category with the given id/name',
+                            ),
+                        );
+                }
 
-                this.channels.create(stringvar(options.name, svconfig), {
-                    topic: `djts-${JSON.stringify({ owner: options.owner.id })}`,
-                    type: options.type,
-                    nsfw: options.nsfw,
-                    bitrate: options.bitrate,
-                    userLimit: options.userLimit,
-                    parent: options.category,
-                    permissionOverwrites: options.permissionOverwrites,
-                    position: options.position,
-                    rateLimitPerUser: options.rateLimitPerUser,
-                    reason: options.reason
-                })
-                .then(ticket => {
-                    if (options.openMessage && options.type == 'text') {
-                        try {
-                            ticket.send({
-                                content: stringvar(options.openMessage.text, svconfig),
-                                embed: stringvar(options.openMessage.embed, svconfig)
-                            });
+                options.permissionOverwrites = options.permissionOverwrites.map(
+                    (x) => {
+                        x.id = stringvar(x.id, svconfig);
+                        return x;
+                    },
+                );
+
+                this.channels
+                    .create(stringvar(options.name, svconfig), {
+                        topic: `djts-${JSON.stringify({
+                            owner: options.owner.id,
+                        })}`,
+                        type: options.type,
+                        nsfw: options.nsfw,
+                        bitrate: options.bitrate,
+                        userLimit: options.userLimit,
+                        parent: options.category,
+                        permissionOverwrites: options.permissionOverwrites,
+                        position: options.position,
+                        rateLimitPerUser: options.rateLimitPerUser,
+                        reason: options.reason,
+                    })
+                    .then((ticket) => {
+                        if (options.openMessage && options.type == 'text') {
+                            try {
+                                ticket.send({
+                                    content: stringvar(
+                                        options.openMessage.text,
+                                        svconfig,
+                                    ),
+                                    embed: stringvar(
+                                        options.openMessage.embed,
+                                        svconfig,
+                                    ),
+                                });
+                                resolve(ticket);
+                            } catch (error) {
+                                reject(error);
+                            }
+                        } else {
                             resolve(ticket);
                         }
-                        catch (error) {
-                            reject(error);
-                        };
-                    } else {
-                        resolve(ticket);
-                    };
-                })
-                .catch(reject);
-
+                    })
+                    .catch(reject);
             });
-
-        };
-
-    };
+        }
+    }
 
     return ticketSystemGuild;
-
 });
