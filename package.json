@@ -1,6 +1,6 @@
 {
   "name": "djs-ticketsystem",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "DJS-TicketSystem is a package designed to make creating \"tickets\" in discord servers easier.",
   "main": "./src/index.js",
   "dependencies": {
