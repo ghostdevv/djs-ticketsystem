@@ -10,7 +10,10 @@ const client = new Client({
 
 const tickets = new TicketSystem(client);
 
-tickets.create({ guild: '663140687591768074', owner: '282839711834177537' });
+tickets.create({
+    guild: '663140687591768074',
+    owner: '282839711834177537',
+});
 
 client.on('ready', () => console.log('Online'));
 
