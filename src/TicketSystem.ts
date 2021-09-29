@@ -1,17 +1,11 @@
+import { CreateOptions, schema as cmSchema } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
-import type { Client, Guild, GuildMember } from 'discord.js';
 import { createTemplater } from './utils/templates';
-
-interface CreateOptions extends TicketSystemOptions {
-    owner: string | GuildMember;
-    guild: string | Guild;
-}
+import type { Client } from 'discord.js';
 
 export class TicketSystem {
     private options: TicketSystemOptions;
     private client: Client;
-
-    private tickets = new Map<string, string>();
 
     constructor(client: Client, options?: Partial<TicketSystemOptions>) {
         this.client = client;
@@ -23,40 +17,38 @@ export class TicketSystem {
         else this.options = value;
     }
 
-    async create(
-        guildResolvable: string | Guild,
-        ownerResolvable: string | GuildMember,
-        options: Partial<TicketSystemOptions>,
-    ) {
-        const { error, value } = schema.validate({
+    async create(options: CreateOptions) {
+        const { error, value } = cmSchema.validate({
             ...this.options,
             ...options,
         });
 
         if (error) throw error.annotate();
 
-        const ticketOptions: TicketSystemOptions = value;
+        const ticketOptions: CreateOptions = value;
 
         const guild = await this.client.guilds.fetch(
-            this.client.guilds.resolveId(guildResolvable),
+            this.client.guilds.resolveId(ticketOptions.guild),
         );
 
         if (!guild)
             throw new TypeError(
-                `Unable to find channel: ${guildResolvable.toString()}`,
+                `Unable to find channel: ${ticketOptions.guild.toString()}`,
             );
 
         const owner = await guild.members.fetch(
-            guild.members.resolveId(ownerResolvable),
+            guild.members.resolveId(ticketOptions.owner),
         );
 
         if (!owner)
-            throw new TypeError(`Unable to find owner: ${ownerResolvable}`);
+            throw new TypeError(`Unable to find owner: ${ticketOptions.owner}`);
 
         const templater = createTemplater({ owner });
 
-        const ticketChannel = await guild.channels.create(
-            templater(ticketOptions.name).slice(0, 32),
+        // Todo set permission overwrites correctly by default
+        return guild.channels.create(
+            templater.string(ticketOptions.name).slice(0, 32),
+            templater.object(ticketOptions),
         );
     }
 }
