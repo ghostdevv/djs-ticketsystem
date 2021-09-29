@@ -54,5 +54,8 @@
   },
   "bugs": {
     "url": "https://github.com/ghostdevv/djs-ticketsystem"
+  },
+  "dependencies": {
+    "joi": "^17.4.2"
   }
 }
