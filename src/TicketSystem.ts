@@ -1,8 +1,11 @@
-import { TicketSystemOptions, schema } from './options';
-import type { Client, Guild } from 'discord.js';
-import pupa from 'pupa';
+import { TicketSystemOptions, schema } from './options/TicketSystem';
+import type { Client, Guild, GuildMember } from 'discord.js';
+import { createTemplater } from './utils/templates';
 
-const templates = {};
+interface CreateOptions extends TicketSystemOptions {
+    owner: string | GuildMember;
+    guild: string | Guild;
+}
 
 export class TicketSystem {
     private options: TicketSystemOptions;
@@ -22,6 +25,7 @@ export class TicketSystem {
 
     async create(
         guildResolvable: string | Guild,
+        ownerResolvable: string | GuildMember,
         options: Partial<TicketSystemOptions>,
     ) {
         const { error, value } = schema.validate({
@@ -42,7 +46,17 @@ export class TicketSystem {
                 `Unable to find channel: ${guildResolvable.toString()}`,
             );
 
-        // Todo templating
-        const ticketChannel = await guild.channels.create(ticketOptions.name);
+        const owner = await guild.members.fetch(
+            guild.members.resolveId(ownerResolvable),
+        );
+
+        if (!owner)
+            throw new TypeError(`Unable to find owner: ${ownerResolvable}`);
+
+        const templater = createTemplater({ owner });
+
+        const ticketChannel = await guild.channels.create(
+            templater(ticketOptions.name).slice(0, 32),
+        );
     }
 }
