@@ -5,5 +5,5 @@ export interface TicketSystemOptions {
 }
 
 export const schema = Joi.object<TicketSystemOptions>({
-    name: Joi.string().min(1).max(32).default('{user.username}-{id}'),
+    name: Joi.string().min(1).max(32).default('{owner.user.username}-{id}'),
 });
