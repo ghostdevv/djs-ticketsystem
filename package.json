@@ -56,6 +56,7 @@
     "url": "https://github.com/ghostdevv/djs-ticketsystem"
   },
   "dependencies": {
-    "joi": "^17.4.2"
+    "joi": "^17.4.2",
+    "pupa": "^3.1.0"
   }
 }
