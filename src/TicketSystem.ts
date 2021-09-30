@@ -1,5 +1,6 @@
-import { CreateOptions, schema as cmSchema } from './options/create';
+import { schema as cmSchema, defaultPermissions } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
+import type { CreateOptions } from './options/create';
 import { createTemplater } from './utils/templates';
 import type { Client } from 'discord.js';
 
@@ -25,7 +26,10 @@ export class TicketSystem {
 
         if (error) throw error.annotate();
 
-        const ticketOptions: CreateOptions = value;
+        const ticketOptions: CreateOptions = {
+            permissionOverwrites: defaultPermissions(),
+            ...value,
+        };
 
         const guild = await this.client.guilds.fetch(
             this.client.guilds.resolveId(ticketOptions.guild),
@@ -43,12 +47,11 @@ export class TicketSystem {
         if (!owner)
             throw new TypeError(`Unable to find owner: ${ticketOptions.owner}`);
 
-        const templater = createTemplater({ owner });
+        const templater = createTemplater({ owner, guild });
 
-        // Todo set permission overwrites correctly by default
         return guild.channels.create(
             templater.string(ticketOptions.name).slice(0, 32),
-            templater.object(ticketOptions),
+            templater.deep(ticketOptions),
         );
     }
 }
