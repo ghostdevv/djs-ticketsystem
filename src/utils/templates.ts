@@ -1,4 +1,5 @@
 import crs from 'crypto-random-string';
+import { string } from 'joi';
 import pupa from 'pupa';
 
 export interface BaseTemplates extends Record<string, any> {
@@ -10,16 +11,42 @@ export const getTemplates = <T extends Record<string, any>>(base: T) => ({
     id: crs({ length: 6, characters: 'alphanumeric' }),
 });
 
-export const createTemplater = <T extends Record<string, any>>(base: T) => ({
-    string: (str: string) => pupa(str, getTemplates(base)),
+export const createTemplater = <T extends Record<string, any>>(base: T) => {
+    const templates = getTemplates(base);
 
-    // todo support deep finding of strings
-    object: (object: Record<string, any>) => {
-        for (const [key, value] of Object.entries(object))
-            typeof value == 'string'
-                ? (object[key] = pupa(value, getTemplates(base)))
-                : '';
+    const string = (str: string) => pupa(str, templates);
 
-        return object;
-    },
-});
+    const array = (array: any[]) =>
+        array.map((item) =>
+            typeof item == 'object' ? object(item) : string(item),
+        );
+
+    function object(ob: Record<string, any>) {
+        for (const [key, value] of Object.entries(ob))
+            switch (typeof value) {
+                case 'string':
+                    ob[key] = string(value);
+                    break;
+
+                case 'object':
+                    ob[key] = object(value);
+                    break;
+
+                default:
+                    ob[key] = Array.isArray(value) ? array(value) : '';
+            }
+
+        return ob;
+    }
+
+    return {
+        deep: (item: any[] | Record<string, any>) =>
+            Array.isArray(item) ? array(item) : object(item),
+
+        string,
+        object,
+        array,
+
+        templates,
+    };
+};
