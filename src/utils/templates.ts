@@ -1,5 +1,4 @@
 import crs from 'crypto-random-string';
-import { string } from 'joi';
 import pupa from 'pupa';
 
 export interface BaseTemplates extends Record<string, any> {
