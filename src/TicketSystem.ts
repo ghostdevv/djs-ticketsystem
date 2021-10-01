@@ -2,9 +2,12 @@ import { TicketChannelManager } from './TicketChannel/TicketChannelManager';
 import { schema as cmSchema, defaultPermissions } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
 import { createTicketChannel } from './TicketChannel/create';
-import type { CreateOptions } from './options/create';
 import { createTemplater } from './utils/templates';
-import type { Client } from 'discord.js';
+
+import type { TicketChannelResolvable } from './TicketChannel/TicketChannel';
+import type { TicketChannel } from './TicketChannel/TicketChannel';
+import type { Client, GuildChannel } from 'discord.js';
+import type { CreateOptions } from './options/create';
 
 export class TicketSystem {
     private readonly options: TicketSystemOptions;
@@ -23,6 +26,10 @@ export class TicketSystem {
         else this.options = value;
 
         this.tickets = new TicketChannelManager(this.client);
+    }
+
+    isTicket(channel: TicketChannelResolvable): boolean {
+        return !!this.tickets.resolve(channel);
     }
 
     async create(options: CreateOptions) {
