@@ -67,10 +67,14 @@ export class TicketSystem {
             templater.deep(ticketOptions),
         );
 
-        return TicketChannel.from(channel.id, {
+        const ticket = await TicketChannel.from(channel.id, {
             owner,
             guild,
             client: this.client,
         });
+
+        this.tickets.cache.set(ticket.id, ticket);
+
+        return ticket;
     }
 }
