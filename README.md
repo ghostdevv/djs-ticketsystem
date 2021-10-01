@@ -51,7 +51,7 @@ Once a ticket channel is created you can do some methods on it:
 # Methods on tickets
 There also some methods and properties on `tickets`
 
-- `<tickets>.isTicket(channel: TicketChannelResolvable)` This allows you to check if a channel is a ticket or not by passing in a TicketChannelResolvable
+- `<tickets>.isTicket(channel: TicketChannelResolvable)` This allows you to check if a channel is a ticket or not by passing in a [TicketChannelResolvable](https://ghostdevv.github.io/djs-ticketsystem/modules.html#TicketChannelResolvable)
 
 - `<tickets>.tickets` @TODO
 
