@@ -5,4 +5,4 @@ export type TicketChannel = GuildChannel & {
     _isTicketChannel: boolean;
 };
 
-export type TicketChannelResolvable = Snowflake | TicketChannel;
+export type TicketChannelResolvable = Snowflake | TicketChannel | GuildChannel;

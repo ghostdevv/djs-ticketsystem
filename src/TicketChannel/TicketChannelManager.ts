@@ -15,7 +15,8 @@ export class TicketChannelManager {
         if (typeof item == 'string')
             return (this.cache.get(item) as TicketChannel) || null;
 
-        if (item._isTicketChannel) return item;
+        if ((item as TicketChannel)?._isTicketChannel)
+            return item as TicketChannel;
 
         return null;
     }
