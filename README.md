@@ -34,11 +34,12 @@ Below is an example of how you can create a ticket, you always have to pass in `
 
 ```js
 client.on('messageCreate', async (message) => {
-    if (message.content == '-new')
-        await tickets.create({
+    if (message.content == '-new') {
+        const ticket = await tickets.create({
             owner: message.member,
             guild: message.guild
         })
+    }
 });
 ```
 
