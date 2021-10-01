@@ -1,22 +1,28 @@
+import { TicketChannelManager } from './TicketChannel/TicketChannelManager';
 import { schema as cmSchema, defaultPermissions } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
-import type { Client, GuildChannel } from 'discord.js';
+import { createTicketChannel } from './TicketChannel/create';
 import type { CreateOptions } from './options/create';
-import { createTicketChannel } from './TicketChannel';
 import { createTemplater } from './utils/templates';
+import type { Client } from 'discord.js';
 
 export class TicketSystem {
-    private options: TicketSystemOptions;
-    private client: Client;
+    private readonly options: TicketSystemOptions;
+    private readonly client: Client;
+
+    public readonly tickets;
 
     constructor(client: Client, options?: Partial<TicketSystemOptions>) {
         this.client = client;
+
         if (!client) throw new TypeError('Expected to recieve discord Client');
 
         const { error, value } = schema.validate(options);
 
         if (error) throw error.annotate();
         else this.options = value;
+
+        this.tickets = new TicketChannelManager(this.client);
     }
 
     async create(options: CreateOptions) {
