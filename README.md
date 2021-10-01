@@ -46,7 +46,7 @@ client.on('messageCreate', async (message) => {
 # Methods on TicketChannel
 Once a ticket channel is created you can do some methods on it:
 
-- `<ticket>.owner()` This returns a [GuildMember](https://discord.js.org/#/docs/main/stable/class/GuildMember) who is the ticket owner
+- `<ticket>.owner` This returns a [GuildMember](https://discord.js.org/#/docs/main/stable/class/GuildMember) who is the ticket owner
 
 # Methods on tickets
 There also some methods and properties on `tickets`
