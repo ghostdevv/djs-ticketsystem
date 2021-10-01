@@ -48,6 +48,13 @@ Once a ticket channel is created you can do some methods on it:
 
 - `<ticket>.owner()` This returns a [GuildMember](https://discord.js.org/#/docs/main/stable/class/GuildMember) who is the ticket owner
 
+# Methods on tickets
+There also some methods and properties on `tickets`
+
+- `<tickets>.isTicket(channel: TicketChannelResolvable)` This allows you to check if a channel is a ticket or not by passing in a TicketChannelResolvable
+
+- `<tickets>.tickets` @TODO
+
 # Support
 -   Join the [discord](https://discord.gg/2Vd4wAjJnm)<br>
 -   Create a issue on the [github](https://github.com/ghostdevv/djs-ticketsystem)
