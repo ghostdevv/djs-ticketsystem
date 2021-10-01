@@ -53,7 +53,7 @@ There also some methods and properties on `tickets`
 
 - `<tickets>.isTicket(channel: TicketChannelResolvable)` This allows you to check if a channel is a ticket or not by passing in a [TicketChannelResolvable](https://ghostdevv.github.io/djs-ticketsystem/modules.html#TicketChannelResolvable)
 
-- `<tickets>.tickets` @TODO
+- `<tickets>.tickets` This is a cached manager like you are used to with [GuildChannelManager](https://discord.js.org/#/docs/main/stable/class/GuildChannelManager) for example, you can view more info [here]()
 
 # Support
 -   Join the [discord](https://discord.gg/2Vd4wAjJnm)<br>
