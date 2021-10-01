@@ -35,7 +35,7 @@ You can also use require, for example <code>const { TicketSystem } = require(&#3
 </a>
 <p>Once a ticket channel is created you can do some methods on it:</p>
 <ul>
-<li><code>&lt;ticket&gt;.owner()</code> This returns a <a href="https://discord.js.org/#/docs/main/stable/class/GuildMember">GuildMember</a> who is the ticket owner</li>
+<li><code>&lt;ticket&gt;.owner</code> This returns a <a href="https://discord.js.org/#/docs/main/stable/class/GuildMember">GuildMember</a> who is the ticket owner</li>
 </ul>
 
 <a href="#methods-on-tickets" id="methods-on-tickets" style="color: inherit; text-decoration: none;">
@@ -45,7 +45,7 @@ You can also use require, for example <code>const { TicketSystem } = require(&#3
 <ul>
 <li><p><code>&lt;tickets&gt;.isTicket(channel: TicketChannelResolvable)</code> This allows you to check if a channel is a ticket or not by passing in a <a href="https://ghostdevv.github.io/djs-ticketsystem/modules.html#TicketChannelResolvable">TicketChannelResolvable</a></p>
 </li>
-<li><p><code>&lt;tickets&gt;.tickets</code> @TODO</p>
+<li><p><code>&lt;tickets&gt;.tickets</code> This is a cached manager like you are used to with <a href="https://discord.js.org/#/docs/main/stable/class/GuildChannelManager">GuildChannelManager</a> for example, you can view more info <a href="">here</a></p>
 </li>
 </ul>
 
