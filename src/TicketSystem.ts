@@ -1,13 +1,12 @@
 import { TicketChannelManager } from './TicketChannel/TicketChannelManager';
 import { schema as cmSchema, defaultPermissions } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
-import { createTicketChannel } from './TicketChannel/create';
+import { TicketChannel } from './TicketChannel/TicketChannel';
 import { createTemplater } from './utils/templates';
 
 import type { TicketChannelResolvable } from './TicketChannel/TicketChannel';
-import type { TicketChannel } from './TicketChannel/TicketChannel';
-import type { Client, GuildChannel } from 'discord.js';
 import type { CreateOptions } from './options/create';
+import type { Client } from 'discord.js';
 
 export class TicketSystem {
     private readonly options: TicketSystemOptions;
@@ -63,12 +62,15 @@ export class TicketSystem {
 
         const templater = createTemplater({ owner, guild });
 
-        return createTicketChannel(
-            await guild.channels.create(
-                templater.string(ticketOptions.name).slice(0, 32),
-                templater.deep(ticketOptions),
-            ),
-            { owner },
+        const channel = await guild.channels.create(
+            templater.string(ticketOptions.name).slice(0, 32),
+            templater.deep(ticketOptions),
         );
+
+        return TicketChannel.from(channel.id, {
+            owner,
+            guild,
+            client: this.client,
+        });
     }
 }

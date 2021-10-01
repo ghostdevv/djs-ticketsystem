@@ -1,6 +1,7 @@
-import type { TicketChannel, TicketChannelResolvable } from './TicketChannel.d';
+import type { TicketChannelResolvable } from './TicketChannel';
 import type { Snowflake, Client } from 'discord.js';
 import { Collection } from '@discordjs/collection';
+import { TicketChannel } from './TicketChannel';
 
 export class TicketChannelManager {
     public readonly cache = new Collection<Snowflake, TicketChannel>();
@@ -15,8 +16,7 @@ export class TicketChannelManager {
         if (typeof item == 'string')
             return (this.cache.get(item) as TicketChannel) || null;
 
-        if ((item as TicketChannel)?._isTicketChannel)
-            return item as TicketChannel;
+        if (item instanceof TicketChannel) return item;
 
         return null;
     }
