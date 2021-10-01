@@ -42,6 +42,11 @@ client.on('messageCreate', async (message) => {
 });
 ```
 
+# Methods on TicketChannel
+Once a ticket channel is created you can do some methods on it:
+
+- `<ticket>.owner()` This returns a [GuildMember](https://discord.js.org/#/docs/main/stable/class/GuildMember) who is the ticket owner
+
 # Support
 -   Join the [discord](https://discord.gg/2Vd4wAjJnm)<br>
 -   Create a issue on the [github](https://github.com/ghostdevv/djs-ticketsystem)
