@@ -1,8 +1,9 @@
 import { schema as cmSchema, defaultPermissions } from './options/create';
 import { TicketSystemOptions, schema } from './options/TicketSystem';
+import type { Client, GuildChannel } from 'discord.js';
 import type { CreateOptions } from './options/create';
+import { createTicketChannel } from './TicketChannel';
 import { createTemplater } from './utils/templates';
-import type { Client } from 'discord.js';
 
 export class TicketSystem {
     private options: TicketSystemOptions;
@@ -49,9 +50,12 @@ export class TicketSystem {
 
         const templater = createTemplater({ owner, guild });
 
-        return guild.channels.create(
-            templater.string(ticketOptions.name).slice(0, 32),
-            templater.deep(ticketOptions),
+        return createTicketChannel(
+            await guild.channels.create(
+                templater.string(ticketOptions.name).slice(0, 32),
+                templater.deep(ticketOptions),
+            ),
+            { owner },
         );
     }
 }
