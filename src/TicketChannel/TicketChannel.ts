@@ -1,7 +1,6 @@
 import { Client, Guild, GuildMember, Snowflake, TextChannel } from 'discord.js';
 import type { RawGuildChannelData } from 'discord.js/typings/rawDataTypes';
 import { createRequest } from '../utils/request';
-import { Routes } from 'discord-api-types/v9';
 
 export type TicketChannelResolvable = Snowflake | TicketChannel;
 
