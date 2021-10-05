@@ -1,4 +1,5 @@
-import type { TicketChannelResolvable } from './TicketChannel';
+import type { RawGuildChannelData } from 'discord.js/typings/rawDataTypes';
+import type { TicketChannelResolvable } from '#types/TicketChannel';
 import { Client, CachedManager } from 'discord.js';
 import { TicketChannel } from './TicketChannel';
 

@@ -1,19 +1,8 @@
-import { Client, Guild, GuildMember, Snowflake, TextChannel } from 'discord.js';
 import type { RawGuildChannelData } from 'discord.js/typings/rawDataTypes';
+import { Client, Guild, GuildMember, TextChannel } from 'discord.js';
+import type { TicketChannelDataMeta } from '#types/TicketChannel';
+import type { TicketChannelData } from '#types/TicketChannel';
 import { createRequest } from '../utils/request';
-
-export type TicketChannelResolvable = Snowflake | TicketChannel;
-
-export interface TicketChannelDataOptions {
-    owner: GuildMember;
-}
-
-export type TicketChannelFromData = TicketChannelDataOptions & {
-    client: Client;
-    guild: Guild;
-};
-
-export type TicketChannelData = RawGuildChannelData & TicketChannelDataOptions;
 
 export class TicketChannel extends TextChannel {
     public readonly owner: GuildMember;

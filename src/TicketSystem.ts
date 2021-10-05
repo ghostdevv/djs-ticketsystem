@@ -4,7 +4,7 @@ import { TicketSystemOptions, schema } from './options/TicketSystem';
 import { TicketChannel } from './TicketChannel/TicketChannel';
 import { createTemplater } from './utils/templates';
 
-import type { TicketChannelResolvable } from './TicketChannel/TicketChannel';
+import type { TicketChannelResolvable } from '#types/TicketChannel';
 import type { CreateOptions } from './options/create';
 import type { Client } from 'discord.js';
 

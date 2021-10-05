@@ -14,7 +14,12 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "moduleResolution": "node",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+
+        "baseUrl": ".",
+        "paths": {
+            "#types/*": ["./src/types/*"]
+        }
     },
     "include": ["src/**/*.ts"]
 }
