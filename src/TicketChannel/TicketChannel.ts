@@ -13,16 +13,22 @@ export class TicketChannel extends TextChannel {
         this.owner = data.owner;
     }
 
-    static async from(
+    static async getRawData(id: string, client: Client) {
+        const res = await createRequest(client.token || '')(`/channels/${id}`);
+        return res.data as RawGuildChannelData;
+    }
+
+    static async fromFetch(
         channelId: string,
-        { client, guild, ...options }: TicketChannelFromData,
-    ): Promise<TicketChannel> {
-        const res = await createRequest(client.token || '')(
-            `/channels/${channelId}`,
-        );
+        client: Client,
+        guild: Guild,
+        options: TicketChannelDataMeta,
+    ) {
+        const data = await TicketChannel.getRawData(channelId, client);
+        return TicketChannel.from(guild, { ...options, ...data });
+    }
 
-        const data = res.data as RawGuildChannelData;
-
-        return new TicketChannel(guild, { ...options, ...data });
+    static from(guild: Guild, data: TicketChannelData): TicketChannel {
+        return new TicketChannel(guild, data);
     }
 }
