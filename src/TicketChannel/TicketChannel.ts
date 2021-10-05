@@ -6,11 +6,13 @@ import { createRequest } from '../utils/request';
 
 export class TicketChannel extends TextChannel {
     public readonly owner: GuildMember;
+    public readonly _data: TicketChannelData;
 
     constructor(guild: Guild, data: TicketChannelData) {
         super(guild, data);
 
         this.owner = data.owner;
+        this._data = data;
     }
 
     static async getRawData(id: string, client: Client) {

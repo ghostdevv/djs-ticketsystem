@@ -10,5 +10,18 @@ export class TicketChannelManager extends CachedManager<
 > {
     constructor(client: Client) {
         super(client, TicketChannel);
+
+        client.ws.on('CHANNEL_UPDATE', (data: RawGuildChannelData) => {
+            const existingTicket = this.cache.get(data.id);
+
+            if (existingTicket)
+                this.cache.set(
+                    data.id,
+                    TicketChannel.from(existingTicket.guild, {
+                        ...existingTicket._data,
+                        ...data,
+                    }),
+                );
+        });
     }
 }
