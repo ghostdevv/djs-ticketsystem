@@ -1,0 +1,59 @@
+<!DOCTYPE html><html class="default no-js"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>djs-ticketsystem</title><meta name="description" content="Documentation for djs-ticketsystem"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">djs-ticketsystem</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>djs-ticketsystem</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"><blockquote>
+<p><strong>NOTE</strong> djs-ticketsystem v3 is in beta</p>
+</blockquote>
+
+<a href="#djs-ticketsystem" id="djs-ticketsystem" style="color: inherit; text-decoration: none;">
+  <h1>DJS-TicketSystem</h1>
+</a>
+<p><a href="https://www.npmjs.com/package/dashargs"><img src="https://img.shields.io/npm/v/djs-ticketsystem?label=Latest%20Version&style=for-the-badge&logo=npm&color=informational" alt=""></a>
+<a href="https://ghostdev.xyz"><img src="https://img.shields.io/static/v1?label=Author&message=GHOST&color=informational&style=for-the-badge" alt=""></a></p>
+<p>DJS-TicketSystem is a package designed to make creating &quot;tickets&quot; in discord servers easier</p>
+
+<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+  <h1>Install</h1>
+</a>
+<pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">install</span><span class="hl-1"> </span><span class="hl-0">djs</span><span class="hl-1">-</span><span class="hl-0">ticketsystem</span>
+</code></pre>
+
+<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
+  <h1>Get Started</h1>
+</a>
+<p>Here is an example on how to setup your bot with the ticket system.<br />
+You can also use require, for example <code>const { TicketSystem } = require(&#39;djs-ticketsystem&#39;);</code></p>
+<pre><code class="language-js"><span class="hl-2">import</span><span class="hl-1"> { </span><span class="hl-0">TicketSystem</span><span class="hl-1"> } </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-3">&#39;djs-ticketsystem&#39;</span><span class="hl-1">;</span><br/><span class="hl-2">import</span><span class="hl-1"> { </span><span class="hl-0">Intents</span><span class="hl-1">, </span><span class="hl-0">Client</span><span class="hl-1"> } </span><span class="hl-2">from</span><span class="hl-1"> </span><span class="hl-3">&#39;discord.js&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Client</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-0">intents:</span><span class="hl-1"> [</span><span class="hl-0">Intents</span><span class="hl-1">.</span><span class="hl-5">FLAGS</span><span class="hl-1">.</span><span class="hl-5">GUILDS</span><span class="hl-1">, </span><span class="hl-0">Intents</span><span class="hl-1">.</span><span class="hl-5">FLAGS</span><span class="hl-1">.</span><span class="hl-5">GUILD_MESSAGES</span><span class="hl-1">],</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">tickets</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">TicketSystem</span><span class="hl-1">(</span><span class="hl-0">client</span><span class="hl-1">, {});</span><br/><br/><span class="hl-0">client</span><span class="hl-1">.</span><span class="hl-6">login</span><span class="hl-1">();</span>
+</code></pre>
+
+<a href="#creating-a-ticket" id="creating-a-ticket" style="color: inherit; text-decoration: none;">
+  <h1>Creating a ticket</h1>
+</a>
+<p>Below is an example of how you can create a ticket, you always have to pass in <code>owner</code> and <code>guild</code> but you can also pass in any option for <a href="https://discord.js.org/#/docs/main/stable/typedef/GuildChannelCreateOptions">GuildChannelCreateOptions</a></p>
+<pre><code class="language-js"><span class="hl-0">client</span><span class="hl-1">.</span><span class="hl-6">on</span><span class="hl-1">(</span><span class="hl-3">&#39;messageCreate&#39;</span><span class="hl-1">, </span><span class="hl-4">async</span><span class="hl-1"> (</span><span class="hl-0">message</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">if</span><span class="hl-1"> (</span><span class="hl-0">message</span><span class="hl-1">.</span><span class="hl-0">content</span><span class="hl-1"> == </span><span class="hl-3">&#39;-new&#39;</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ticket</span><span class="hl-1"> = </span><span class="hl-2">await</span><span class="hl-1"> </span><span class="hl-0">tickets</span><span class="hl-1">.</span><span class="hl-6">create</span><span class="hl-1">({</span><br/><span class="hl-1">            </span><span class="hl-0">owner:</span><span class="hl-1"> </span><span class="hl-0">message</span><span class="hl-1">.</span><span class="hl-0">member</span><span class="hl-1">,</span><br/><span class="hl-1">            </span><span class="hl-0">guild:</span><span class="hl-1"> </span><span class="hl-0">message</span><span class="hl-1">.</span><span class="hl-0">guild</span><br/><span class="hl-1">        })</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">});</span>
+</code></pre>
+
+<a href="#methods-on-ticketchannel" id="methods-on-ticketchannel" style="color: inherit; text-decoration: none;">
+  <h1>Methods on TicketChannel</h1>
+</a>
+<p>Once a ticket channel is created you can do some methods on it:</p>
+<ul>
+<li><code>&lt;ticket&gt;.owner</code> This returns a <a href="https://discord.js.org/#/docs/main/stable/class/GuildMember">GuildMember</a> who is the ticket owner</li>
+</ul>
+
+<a href="#methods-on-tickets" id="methods-on-tickets" style="color: inherit; text-decoration: none;">
+  <h1>Methods on tickets</h1>
+</a>
+<p>There also some methods and properties on <code>tickets</code></p>
+<ul>
+<li><p><code>&lt;tickets&gt;.isTicket(channel: TicketChannelResolvable)</code> This allows you to check if a channel is a ticket or not by passing in a <a href="https://ghostdevv.github.io/djs-ticketsystem/modules.html#TicketChannelResolvable">TicketChannelResolvable</a></p>
+</li>
+<li><p><code>&lt;tickets&gt;.tickets</code> This is a cached manager like you are used to with <a href="https://discord.js.org/#/docs/main/stable/class/GuildChannelManager">GuildChannelManager</a> for example, you can view more info <a href="https://ghostdevv.github.io/djs-ticketsystem/classes/TicketChannelManager.html">here</a></p>
+</li>
+</ul>
+
+<a href="#support" id="support" style="color: inherit; text-decoration: none;">
+  <h1>Support</h1>
+</a>
+<ul>
+<li>Join the <a href="https://discord.gg/2Vd4wAjJnm">discord</a><br></li>
+<li>Create a issue on the <a href="https://github.com/ghostdevv/djs-ticketsystem">github</a></li>
+</ul>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/TicketChannel.html" class="tsd-kind-icon">Ticket<wbr/>Channel</a></li><li class="tsd-kind-class"><a href="classes/TicketChannelManager.html" class="tsd-kind-icon">Ticket<wbr/>Channel<wbr/>Manager</a></li><li class="tsd-kind-class"><a href="classes/TicketSystem.html" class="tsd-kind-icon">Ticket<wbr/>System</a></li><li class="tsd-kind-interface"><a href="interfaces/CreateOptions.html" class="tsd-kind-icon">Create<wbr/>Options</a></li><li class="tsd-kind-interface"><a href="interfaces/TicketChannelDataOptions.html" class="tsd-kind-icon">Ticket<wbr/>Channel<wbr/>Data<wbr/>Options</a></li><li class="tsd-kind-interface"><a href="interfaces/TicketSystemOptions.html" class="tsd-kind-icon">Ticket<wbr/>System<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TicketChannelData" class="tsd-kind-icon">Ticket<wbr/>Channel<wbr/>Data</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TicketChannelFromData" class="tsd-kind-icon">Ticket<wbr/>Channel<wbr/>From<wbr/>Data</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TicketChannelResolvable" class="tsd-kind-icon">Ticket<wbr/>Channel<wbr/>Resolvable</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

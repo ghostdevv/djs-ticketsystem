@@ -1,12 +1,37 @@
 {
   "name": "djs-ticketsystem",
-  "version": "2.1.1",
-  "description": "DJS-TicketSystem is a package designed to make creating \"tickets\" in discord servers easier.",
-  "main": "./src/index.js",
-  "dependencies": {
-    "lodash.clonedeep": "^4.5.0"
+  "version": "3.0.0-0",
+  "description": "djs-ticketsystem is a package designed to make creating \"tickets\" in discord servers easier.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
   },
-  "scripts": {},
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:ts": "tsup-node --watch src",
+    "dev:nodemon": "nodemon dev/index.js",
+    "build": "tsup-node",
+    "docs": "typedoc src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.1",
+    "discord.js": "^13.1.0",
+    "nodemon": "^2.0.13",
+    "npm-run-all": "^4.1.5",
+    "tsup": "^5.2.1",
+    "typedoc": "^0.22.4",
+    "typescript": "^4.4.3"
+  },
   "keywords": [
     "djs",
     "ticketsystem",
@@ -22,7 +47,7 @@
     "tickets",
     "ticket"
   ],
-  "author": "GHOST",
+  "author": "GHOST <ghostdevbusiness@gmail.com> (https://ghostdev.xyz)",
   "license": "MIT",
   "homepage": "https://github.com/ghostdevv/djs-ticketsystem",
   "repository": {
@@ -32,5 +57,10 @@
   "bugs": {
     "url": "https://github.com/ghostdevv/djs-ticketsystem"
   },
-  "deprecated": false
+  "dependencies": {
+    "axios": "^0.22.0",
+    "crypto-random-string": "^3.3.1",
+    "joi": "^17.4.2",
+    "pupa": "^2.1.1"
+  }
 }
